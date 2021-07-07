@@ -1,5 +1,6 @@
 <%@tag pageEncoding="UTF-8" %>
 <%@taglib uri="futurepagesApp" prefix="fpg"%>
+<%--@elvariable id="params" type="java.util.Map"--%>
 
 <%@attribute name="aluno" type="modules.escola.beans.Aluno"  required="true"%>
 <%@attribute name="green" type="java.lang.Boolean"  required="true"%>

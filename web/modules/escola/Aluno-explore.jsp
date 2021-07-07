@@ -1,4 +1,5 @@
 <%@taglib uri="futurepagesApp" prefix="fpg" %>
+<%--@elvariable id="turma" type="modules.escola.beans.Turma"--%>
 
 <script type="text/javascript">
     function confirmaExclusao(id, nomeCompleto, matricula) {
@@ -21,7 +22,7 @@
 	<br/>
 	<br/>
     <form name="selecionaPorTurma" method="post" action="<fpg:contextPath/>/escola/Aluno-explore">
-        <fpg:Select list="turmas" name="turma" selected="${turma}" 
+        <fpg:Select list="turmas" name="turma" selected="${turma}"
                     defaultText="- Todas as Turmas -" onchange="selecionaPorTurma.submit()"
                     showAttr="nome" />
     </form>

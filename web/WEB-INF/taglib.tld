@@ -1210,5 +1210,6 @@
 	
    <!-- Generated Application Tags From Tag Files -->
 
+   <tag-file><name>turma</name><path>/WEB-INF/tags/turma.tag</path></tag-file>
    <tag-file><name>aluno</name><path>/WEB-INF/tags/aluno.tag</path></tag-file>
 </taglib>

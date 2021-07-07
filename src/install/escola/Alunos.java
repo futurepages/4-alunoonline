@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.util.List;
 
 import install.Resources;
+import modules.escola.beans.TipoTurma;
 import modules.escola.beans.Turma;
 
 import java.util.Random;
 
 import modules.escola.beans.Aluno;
+import modules.escola.dao.TipoTurmaDao;
+import modules.escola.dao.TurmaDao;
+import org.apache.commons.lang.math.RandomUtils;
 import org.futurepages.core.install.Installation;
 import org.futurepages.core.persistence.Dao;
 import org.futurepages.enums.PathTypeEnum;
@@ -69,7 +73,14 @@ public class Alunos implements Installation {
 		if(turma!=null){
 			aluno.setTurma(turma);
 		}
+
+		Turma turmaX = TurmaDao.getById(aluno.getTurma().getId());
+		if (turmaX != null) {
+			turmaX.setRepresentante(aluno);
+		}
+
 		Dao.getInstance().save(aluno);
+		Dao.getInstance().save(turmaX);
 		FileUtil.copy(FileUtil.classRealPath(this.getClass()) + "res/" + aluno.getId() + ".jpg", Resources.getUploadsPath(PathTypeEnum.REAL) + "/alunos/" + aluno.getId()+".jpg");
 	}
 }

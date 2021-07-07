@@ -1,18 +1,19 @@
 <%@taglib uri="futurepagesApp" prefix="fpg" %>
+<%--@elvariable id="aluno" type="modules.escola.beans.Aluno"--%>
 
-<div align="center">
+<div style="text-align: center;">
     <h2>Editar Aluno</h2>
     <br/>
     <br/>
     <fpg:hasError>
         <!-- imprime estre pedaço somente se houver erro na página -->
-        <div style="color: red; border:solid 1px red">
+        <div style="color: red; border:solid 1px red;">
             <fpg:error/>
         </div>
     </fpg:hasError>
     <br />
     <br />
-    <a href="<fpg:contextPath />">Voltar ao inínio</a>
+    <a href="<fpg:contextPath />">Voltar ao início</a>
     <br />
     <br />
     <form method="post" action="<fpg:contextPath/>/escola/Aluno-update" enctype="multipart/form-data">
@@ -23,10 +24,11 @@
         Matricula: <input id="matricula" name="matricula" value="${aluno.matricula}" />
         <br />
         <br />
-        <fpg:Select list="turmas" name="turma" selected="${aluno.turma!=null?aluno.turma.id:0}" showAttr="nome" />
+        Turma: <fpg:Select list="turmas" name="turma" selected="${aluno.turma!=null?aluno.turma.id:0}" showAttr="nome" />
         <br />
         <br />
         Arquivo de Foto 3x4: <input type="file" name="foto"/>
+        <br />
         <br />
         <input type="submit" value="Atualizar" />
 

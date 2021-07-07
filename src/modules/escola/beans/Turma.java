@@ -1,6 +1,12 @@
 package modules.escola.beans;
 
+import install.escola.Alunos;
+import modules.escola.dao.AlunoDao;
+import modules.escola.dao.TurmaDao;
+
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -25,8 +33,14 @@ public class Turma  implements Serializable {
     @Column(nullable = false)
     private String nome;
 
-    @ManyToOne(cascade = CascadeType.ALL,optional = false)
+    @ManyToOne(optional = false)
 	private TipoTurma tipo;
+
+    @OneToMany(mappedBy="turma")
+    private List<Aluno> alunos;
+
+    @ManyToOne
+    private Aluno representante;
 
     public Turma() {
     }
@@ -34,6 +48,12 @@ public class Turma  implements Serializable {
     public Turma(String codigo, String nome) {
         setCodigo(codigo);
         setNome(nome);
+    }
+
+    public Turma(String codigo, String nome, Aluno representante){
+        setCodigo(codigo);
+        setNome(nome);
+        setRepresentante(representante);
     }
 
     public void setCodigo(String codigo) {
@@ -67,4 +87,31 @@ public class Turma  implements Serializable {
 	public void setTipo(TipoTurma tipo) {
 		this.tipo = tipo;
 	}
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
+    public List<Aluno> getAlunos() {
+        return AlunoDao.listByTurmaId(this.getId());
+    }
+
+    public void setRepresentante(Aluno representante) {
+        this.representante = representante;
+    }
+
+    public Aluno getRepresentante() {
+        return representante;
+    }
+
+    public long getTotalAlunos() {
+        return TurmaDao.getTotalAlunosPara(this);
+    }
+
+    public void fillFromForm(Turma turmaForm) {
+        this.setNome(turmaForm.getNome());
+        this.setCodigo(turmaForm.getCodigo());
+        this.setTipo(turmaForm.getTipo());
+        this.setRepresentante(turmaForm.getRepresentante());
+    }
 }

@@ -1,6 +1,7 @@
 package modules.escola.actions;
 
 import modules.escola.beans.Turma;
+import modules.escola.dao.AlunoDao;
 import modules.escola.dao.TipoTurmaDao;
 import modules.escola.dao.TurmaDao;
 import modules.escola.validators.TurmaValidator;
@@ -11,33 +12,58 @@ import org.futurepages.menta.actions.CrudActions;
 //Crud Actions de Turma
 public class TurmaActions extends CrudActions {
 
-    private Turma turma; //objeto injetado conforme os filtros.
-
 	@Override
 	protected void restoreObject() {
+		Turma turma = (Turma) input.getValue("turma");
         output("turma", Dao.getInstance().get(Turma.class, turma.getId()));
 	}
 
 	@Override
     protected void listDependencies() {
-
+		Turma turma = (Turma) input.getValue("turma");
 		//quando tem erro no formulário, para recarregar a tela, deve-se colocar novamente o objeto no output.
 		if (hasError()) {
 			output("turma", turma);
 		}
 
 		output("tipos", TipoTurmaDao.listAll());
-    }
+		output("alunos", AlunoDao.listByTurmaId(turma.getId()));
+	}
 
-	@Transactional
     public String create() {
-        validate(TurmaValidator.class).create(turma);
-        Dao.getInstance().save(turma);
+		Turma turma = (Turma) input.getValue("turma");
+        validate(TurmaValidator.class).createOrUpdate(turma);
+        Dao.getInstance().saveTransaction(turma);
         return success("Turma criada com sucesso.");
     }
 
+	public String update() {
+		Turma turmaForm = (Turma) input.getValue("turma");
+		validate(TurmaValidator.class).createOrUpdate(turmaForm);
+		Turma turmaDB = TurmaDao.getById(turmaForm.getId());
+		turmaDB.fillFromForm(turmaForm);
+
+		Dao.getInstance().updateTransaction(turmaDB);
+		return success("Turma atualizada com sucesso.");
+	}
+
+	public String delete() {
+		Turma turma = (Turma) input.getValue("turma");
+
+		turma = TurmaDao.getById(turma.getId());
+		Dao.getInstance().deleteTransaction(turma);
+		return success("Turma excluída com sucesso.");
+	}
+
+	public String explore(String busca){
+		output("turmas", TurmaDao.listBy(busca));
+		output("busca",busca);
+		return SUCCESS;
+	}
+
     @Override
     protected void listObjects() {
-        output("turmas", TurmaDao.listAll());
+		explore("");
     }
+
 }

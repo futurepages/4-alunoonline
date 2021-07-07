@@ -4,10 +4,10 @@
 
 	<param name="PAGE_ENCODING"	value="UTF-8"/>
 
-<!--    <param name="SCHEMA_GENERATION_TYPE"    value="export"/>-->
-    <param name="SCHEMA_GENERATION_TYPE"    value="update_beans"/>
+<!--	<param name="SCHEMA_GENERATION_TYPE"    value="export"/>-->
+<!--	<param name="INSTALL_MODE"              value="on"/>-->
 
-<!--    <param name="INSTALL_MODE"              value="on"/>-->
+	<param name="SCHEMA_GENERATION_TYPE"    value="update_beans"/>
 
 	<param name="APP_HOST"    value="http://localhost/alunoonline"/>
 

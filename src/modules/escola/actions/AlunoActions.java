@@ -25,22 +25,6 @@ public class AlunoActions extends CrudActions {
     private Aluno aluno;
     private FileItem foto;
 
-
-    /*
-     * Lista de dependências necessárias para telas de criação e atualização.
-     */
-    @Override
-    protected void listDependencies() {
-
-	    //quando tem erro no formulário, para recarregar a tela, deve-se colocar novamente o objeto no output.
-	    if(hasError()) {
-		    output.setValue("aluno", aluno);
-	    }
-
-        List turmas = TurmaDao.listAll();
-	    output("turmas", turmas);
-    }
-
     /*
      * É a execução da ação de criação. quando chama-se Aluno.create.fpg
      */
@@ -120,4 +104,20 @@ public class AlunoActions extends CrudActions {
         aluno = AlunoDao.getById(aluno.getId());
         output("aluno", aluno);
     }
+
+	/*
+	 * Lista de dependências necessárias para telas de criação e atualização.
+	 */
+	@Override
+	protected void listDependencies() {
+
+		//quando tem erro no formulário, para recarregar a tela, deve-se colocar novamente o objeto no output.
+		if(hasError()) {
+			output.setValue("aluno", aluno);
+		}
+
+		List<Turma> turmas = TurmaDao.listAll();
+		output("turmas", turmas);
+	}
+
 }

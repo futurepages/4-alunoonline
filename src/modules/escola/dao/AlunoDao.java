@@ -1,6 +1,7 @@
 package modules.escola.dao;
 
 import modules.escola.beans.Aluno;
+import modules.escola.beans.TipoTurma;
 import org.futurepages.core.persistence.Dao;
 import org.futurepages.core.persistence.HQLProvider;
 import org.futurepages.util.Is;
@@ -27,5 +28,8 @@ public class AlunoDao extends HQLProvider{
 									)
 				));
 
+	}
+	public static List<Aluno> listAll() {
+		return Dao.getInstance().list(hql(Aluno.class,null, DEFAULT_ORDER));
 	}
 }

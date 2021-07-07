@@ -60,6 +60,8 @@ public class ModuleManager extends AbstractModuleManager {
             // caso update retorne ERROR. Isto fica à cargo do estudante.)
             .on(SUCCESS, UPDATE, chainIn("Aluno?type=explore"))
 
+            .on(ERROR, UPDATE, fwIn("Aluno-update.page"))
+
             // Se delete retornar SUCCESS a consequência será a tela
             // de exploração. (OBS: não foi implementado a consequência
             // caso delete retorne ERROR. Isto fica à cargo do estudante.)
@@ -78,6 +80,7 @@ public class ModuleManager extends AbstractModuleManager {
             // ao campo da action com o nome "turma".
             .filter(new VOFilter("turma", Turma.class))
             .filter(new PIFilter("turma","tipo", TipoTurma.class))
+            .filter(new PIFilter("turma","representante", Aluno.class))
 
             // se chamar Turma?type=create, o método execute será chamado, e
             // a consequência do método deverá mandar o resultado do output
@@ -95,6 +98,14 @@ public class ModuleManager extends AbstractModuleManager {
 
             // Turma?type=explore ocorre o redirecionamento para a tela
             // de listagem das turmas cadastrados no sistema
-            .on(EXPLORE, fwIn("Turma-explore.page"));
+            .on(EXPLORE, fwIn("Turma-explore.page"))
+
+            // Se type for igual a UPDATE a consequência será a tela
+            // de atualização
+            .on(UPDATE, fwIn("Turma-update.page"))
+
+            .on(SUCCESS, UPDATE, chainIn("Turma?type=explore"))
+
+            .on(SUCCESS, DELETE, chainIn("Turma?type=explore"));
     }
 }

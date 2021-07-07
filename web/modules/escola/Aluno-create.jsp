@@ -1,7 +1,8 @@
 <%@taglib uri="futurepagesApp" prefix="fpg"%>
+<%--@elvariable id="aluno" type="modules.escola.beans.Aluno"--%>
 
-<div style="text-align:center">
-    <h1>Novo Aluno</h1>
+<div class="container">
+    <h1 style="text-align: center;">Novo Aluno</h1>
     <br/>
     <br/>
     <fpg:hasError>
@@ -12,17 +13,22 @@
         <br/>
 
     <form method="post" action="<fpg:contextPath/>/escola/Aluno-create" enctype="multipart/form-data">
-        Nome: <input id="nomeCompleto" name="nomeCompleto" value="${aluno.nomeCompleto}" />
-        <br/><br/>
-        Matrícula: <input id="matricula" name="matricula" value="${aluno.matricula}" />
-        <br />
-        <br />
-        <fpg:Select list="turmas" name="turma" selected="${aluno.turma!=null?aluno.turma.id:0}" showAttr="nome" />
-	    <br />
-	    <br />
-	    Arquivo de Foto 3x4: <input type="file" name="foto"/>
-	    <br />
-        <br />
-        <input type="submit" value="Enviar" />
+        <div class="form-group">
+            <label for="nomeCompleto">Nome</label>
+            <input class="form-control" id="nomeCompleto" name="nomeCompleto" value="${aluno.nomeCompleto}" />
+        </div>
+        <div class="form-group">
+            <label for="matricula">Matrícula</label>
+            <input class="form-control" id="matricula" name="matricula" value="${aluno.matricula}" />
+        </div>
+        <div class="form-group">
+            <label for="turma">Turma</label>
+            <fpg:Select id="turma" list="turmas" name="turma" selected="${aluno.turma!=null?aluno.turma.id:0}" showAttr="nome" />
+        </div>
+        <div class="form-group">
+            <label for="foto">Foto 3x4</label>
+            <input class="form-control" type="file" id="foto" name="foto"/>
+        </div>
+        <button type="submit" class="btn btn-primary" value="Salvar"> Salvar </button>
     </form>
 </div>

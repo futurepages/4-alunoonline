@@ -1,11 +1,17 @@
 package install.escola;
 
+import modules.escola.beans.Aluno;
 import modules.escola.beans.TipoTurma;
 import modules.escola.beans.Turma;
+import modules.escola.dao.AlunoDao;
 import modules.escola.dao.TipoTurmaDao;
 import org.apache.commons.lang.math.RandomUtils;
 import org.futurepages.core.install.Installation;
 import org.futurepages.core.persistence.Dao;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 
 import static org.futurepages.core.persistence.HQLProvider.*;
 
@@ -14,8 +20,10 @@ import static org.futurepages.core.persistence.HQLProvider.*;
  */
 public class Turmas implements Installation {
 
-    public void execute() {
-        insereTurma("T01",  "Cálculo I");
+
+	public void execute() {
+
+		insereTurma("T01",  "Cálculo I");
         insereTurma("T02",  "Introdução a computação");
         insereTurma("T03",  "Lógica");
         insereTurma("T04",  "Estatística");
@@ -30,12 +38,17 @@ public class Turmas implements Installation {
         insereTurma("T013", "Sistemas Operacionais II");
     }
 
-	private void insereTurma(String codigo, String nome){
+	private void insereTurma(String codigo, String nome) {
+		insereTurma(codigo,nome,null);
+	}
+
+	private void insereTurma(String codigo, String nome, Aluno representante) {
 		Turma turma = new Turma(codigo, nome);
+
 		int totalTipos = (int) Dao.getInstance().numRows(hql(TipoTurma.class));
 		TipoTurma tipo = TipoTurmaDao.getById(RandomUtils.nextInt(totalTipos) + 1);
 		turma.setTipo(tipo);
+
 		Dao.getInstance().save(turma);
 	}
-
 }

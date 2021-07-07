@@ -7,7 +7,7 @@ import org.futurepages.util.Is;
 
 public class TurmaValidator extends Validator {
 
-    public void create(Turma turma) {
+    public void createOrUpdate(Turma turma) {
 
         // validando o nome da turma
         if (Is.empty(turma.getNome())) {
@@ -22,6 +22,11 @@ public class TurmaValidator extends Validator {
         else if (TurmaDao.getComMesmoCodigoDesta(turma)!=null) {
             error("Já existe uma turma com esse código.");
         }
+
+        if(turma.getRepresentante()!=null && TurmaDao.getComMesmoRepresentante(turma) != null){
+            error("Já existe uma turma com esse representante.");
+        }
+
 	    if(turma.getTipo()==null){
             error("Informe o tipo da turma.");
 	    }
