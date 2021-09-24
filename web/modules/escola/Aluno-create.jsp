@@ -23,7 +23,14 @@
         </div>
         <div class="form-group">
             <label for="turma">Turma</label>
-            <fpg:Select id="turma" list="turmas" name="turma" selected="${aluno.turma!=null?aluno.turma.id:0}" showAttr="nome" />
+            <fpg:Select id="turma"
+                        list="turmas"
+                        name="turma"
+                        selected="${aluno.turma!=null?aluno.turma.id:0}"
+                        showAttr="nome"
+                        defaultText="- Sem turma -"
+                        defaultValue=""
+            />
         </div>
         <div class="form-group">
             <label for="foto">Foto 3x4</label>

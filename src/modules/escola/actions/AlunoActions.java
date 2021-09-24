@@ -5,12 +5,14 @@ import modules.escola.beans.Aluno;
 import modules.escola.beans.Turma;
 import modules.escola.dao.AlunoDao;
 import modules.escola.dao.TurmaDao;
+import modules.escola.enums.TipoFiltroAlunoTurmaEnum;
 import modules.escola.validators.AlunoValidator;
 import org.apache.commons.fileupload.FileItem;
 import org.futurepages.core.persistence.Dao;
 import org.futurepages.core.persistence.annotations.Transactional;
 import org.futurepages.enums.PathTypeEnum;
 import org.futurepages.menta.actions.CrudActions;
+import org.futurepages.util.Is;
 import org.futurepages.util.The;
 
 import java.io.File;
@@ -22,15 +24,14 @@ import java.util.List;
  */
 public class AlunoActions extends CrudActions {
 
-    private Aluno aluno;
-    private FileItem foto;
-
     /*
      * É a execução da ação de criação. quando chama-se Aluno.create.fpg
      */
 	@Transactional
     public String create() throws Exception {
-        validate(AlunoValidator.class).createOrUpdate(aluno);
+		Aluno aluno = (Aluno) input.getValue("aluno");
+		FileItem foto = (FileItem) input.getValue("foto");
+		validate(AlunoValidator.class).createOrUpdate(aluno, foto, CREATE);
         Dao.getInstance().save(aluno);
 		gravaFoto(aluno,foto);
         return success("Aluno criado com sucesso");
@@ -41,7 +42,9 @@ public class AlunoActions extends CrudActions {
 		*/
 	@Transactional
 	public String update() throws Exception {
-		validate(AlunoValidator.class).createOrUpdate(aluno);
+		Aluno aluno = (Aluno) input.getValue("aluno");
+		FileItem foto = (FileItem) input.getValue("foto");
+		validate(AlunoValidator.class).createOrUpdate(aluno, foto, UPDATE);
 		Dao.getInstance().update(aluno);
 		gravaFoto(aluno,foto);
 		return success("Aluno atualizado com sucesso.");
@@ -52,6 +55,7 @@ public class AlunoActions extends CrudActions {
 	 */
 	@Transactional
 	public String delete() {
+		Aluno aluno = (Aluno) input.getValue("aluno");
 		aluno = AlunoDao.getById(aluno.getId());
 		Dao.getInstance().delete(aluno);
 		return success("Aluno excluído com sucesso.");
@@ -61,17 +65,30 @@ public class AlunoActions extends CrudActions {
 	/*
 	 * É a execução da filtragem.
 	 *
-	 * É executado quando chamamos Aluno.explore.fpg?turma=99
+	 * É executado quando chamamos Aluno.explore.fpg?turmaId=99
 	 */
-	public String explore(int turma) {
+	public String explore(int turmaId, String tipoFiltroName) {
+		TipoFiltroAlunoTurmaEnum tipoFiltro = null;
+		try {
+			tipoFiltro = TipoFiltroAlunoTurmaEnum.valueOf(tipoFiltroName);
+		}catch (Exception ignored){}
+		Turma turma = Is.selected(turmaId)? Dao.getInstance().get(Turma.class, turmaId) : null;
 
-		List<Aluno> alunos = AlunoDao.listByTurmaId(turma);
+		List<Aluno> alunos = AlunoDao.listByTurmaIdAndTipoFiltro(turma, tipoFiltro);
+
 		List<Turma> turmas = TurmaDao.listAll();
+		TipoFiltroAlunoTurmaEnum[] opcoesFiltroTurma = TipoFiltroAlunoTurmaEnum.values();
 
-
+		// lista principal...
 		output("alunos", alunos);
+
+		// dependencias de filtragem
 		output("turmas", turmas);
-		output("turma", turma); //id da turma filtrada
+		output("opcoesFiltroTurma", opcoesFiltroTurma);
+
+		//filtros selecionados
+		output("turma", turma); //turma filtrada
+		output("tipoFiltro", tipoFiltro); //filtro tipo turma realizado
 
 		return SUCCESS;
 	}
@@ -93,7 +110,7 @@ public class AlunoActions extends CrudActions {
 	 */
     @Override
     protected void listObjects() {
-        explore(0);
+        explore(0,null);
     }
 
     /*
@@ -101,7 +118,9 @@ public class AlunoActions extends CrudActions {
      */
     @Override
     protected void restoreObject() {
-        aluno = AlunoDao.getById(aluno.getId());
+	    Aluno aluno = (Aluno) input.getValue("aluno");
+
+	    aluno = AlunoDao.getById(aluno.getId());
         output("aluno", aluno);
     }
 
@@ -113,7 +132,10 @@ public class AlunoActions extends CrudActions {
 
 		//quando tem erro no formulário, para recarregar a tela, deve-se colocar novamente o objeto no output.
 		if(hasError()) {
-			output.setValue("aluno", aluno);
+//			Aluno aluno = (Aluno) input.getValue("aluno");
+//			output.setValue("aluno", aluno);
+			// as duas linhas em cima correspondem a isto:
+			fwdValue("aluno");
 		}
 
 		List<Turma> turmas = TurmaDao.listAll();

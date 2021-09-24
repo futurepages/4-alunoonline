@@ -7,7 +7,7 @@ import org.futurepages.core.persistence.Dao;
 /*
  * Instala os tipos de turma...
  */
-public class TiposTurma extends Installer{
+public class TiposTurmaInstaller extends Installer{
 
     @Override
     public void execute() throws Exception {

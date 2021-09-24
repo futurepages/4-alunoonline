@@ -36,18 +36,16 @@ public class Turmas implements Installation {
         insereTurma("T011", "Sistemas Operacionais I");
         insereTurma("T012", "Redes de computadores II");
         insereTurma("T013", "Sistemas Operacionais II");
+
     }
 
 	private void insereTurma(String codigo, String nome) {
-		insereTurma(codigo,nome,null);
-	}
-
-	private void insereTurma(String codigo, String nome, Aluno representante) {
 		Turma turma = new Turma(codigo, nome);
 
 		int totalTipos = (int) Dao.getInstance().numRows(hql(TipoTurma.class));
 		TipoTurma tipo = TipoTurmaDao.getById(RandomUtils.nextInt(totalTipos) + 1);
 		turma.setTipo(tipo);
+
 
 		Dao.getInstance().save(turma);
 	}
