@@ -16,21 +16,35 @@
     <a href="<fpg:contextPath />">Voltar ao início</a>
     <br />
     <br />
-    <form method="post" action="<fpg:contextPath/>/escola/Aluno-update" enctype="multipart/form-data">
-        <input name="id" value="${aluno.id}" type="hidden" />
-        Nome: <input id="nomeCompleto" name="nomeCompleto" value="${aluno.nomeCompleto}" />
-        <br />
-        <br />
-        Matricula: <input id="matricula" name="matricula" value="${aluno.matricula}" />
-        <br />
-        <br />
-        Turma: <fpg:Select list="turmas" name="turma" selected="${aluno.turma!=null?aluno.turma.id:0}" showAttr="nome" />
-        <br />
-        <br />
-        Arquivo de Foto 3x4: <input type="file" name="foto"/>
-        <br />
-        <br />
-        <input type="submit" value="Atualizar" />
+    <div >
+        <form method="post" action="<fpg:contextPath/>/escola/Aluno-update" enctype="multipart/form-data">
+            <div style="display: inline-flex; padding: 10px">
+                <div style="float: left; width: 500px">
+                    <input name="id" value="${aluno.id}" type="hidden"/>
+                    Nome: <input id="nomeCompleto" class="input-nome" name="nomeCompleto" value="${aluno.nomeCompleto}" />
+                </div>
+                <div style="float: right">
+                    Matricula: <input id="matricula" name="matricula" value="${aluno.matricula}" />
+                </div>
+            </div>
+            <br>
+            <div style="display: inline-flex; padding: 10px">
+                <div>
+                    Turma: <fpg:Select list="turmas" name="turma" selected="${aluno.turma!=null?aluno.turma.id:0}" showAttr="nome" />
+                </div>
+                <div style="padding-left: 5px">
+                    Arquivo de Foto 3x4: <input type="file" name="foto"/>
+                </div>
+            </div>
+            <br>
+            <input type="submit" value="Atualizar" />
 
-    </form>
+        </form>
+    </div>
 </div>
+
+<style>
+    .input-nome{
+        width: 400px;
+    }
+</style>

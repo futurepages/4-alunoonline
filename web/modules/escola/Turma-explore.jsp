@@ -1,5 +1,9 @@
 <%@taglib uri="futurepagesApp" prefix="fpg"%>
 <%--@elvariable id="busca" type="java.lang.String"--%>
+<%--@elvariable id="turma" type="modules.escola.beans.Turma"--%>
+<%--@elvariable id="tipoFiltro" type="modules.escola.enums.TipoFiltroTurmaRepresentanteEnum"--%>
+
+
 
 <script type="text/javascript">
     function confirmaExclusao(id, codigo, nome) {
@@ -37,9 +41,18 @@
     </fpg:hasSuccess>
         <a href="<fpg:contextPath/>/escola/Turma?type=create">Nova Turma</a>
     &nbsp;
-	<form style="display:inline;" method="get" action="<fpg:contextPath/>/escola/Turma-explore">
+	<form id="form-filtro-turma" style="display:inline;" method="get" action="<fpg:contextPath/>/escola/Turma-explore">
 		<input type="text" name="busca" value="${busca}"/>
 		<input type="submit" value="Buscar"/>
+		<fpg:Select list="opcoesFiltroTurma"
+		            showAttr="rotulo"
+		            name="tipoFiltroName"
+		            selected="${tipoFiltro!=null? tipoFiltro.name() : ''}"
+		            idName="id"
+		            defaultValue=""
+		            onchange="$('#form-filtro-turma').submit()"
+		            defaultText="- Lista Geral -"
+		/>
 	</form>
 	<br />
     <br />
@@ -53,7 +66,7 @@
                    data-toggle="table"
                    data-detail-view="true"
                    data-detail-formatter="detailFormatter"
-                    style="text-align: center;">
+                   style="text-align: center;">
 	            <thead>
 	                <tr>
 	                    <th data-field="id">ID</th>
@@ -68,7 +81,6 @@
 	            </thead>
 	            <tbody>
                 <fpg:loop var="turma">
-                    <%--@elvariable id="turma" type="modules.escola.beans.Turma"--%>
 					<fpg:turma turma="${turma}"/>
                 </fpg:loop>
 	            </tbody>

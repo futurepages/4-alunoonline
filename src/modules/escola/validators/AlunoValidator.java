@@ -2,17 +2,19 @@ package modules.escola.validators;
 
 import modules.escola.beans.Aluno;
 import modules.escola.dao.AlunoDao;
+import org.apache.commons.fileupload.FileItem;
 import org.futurepages.menta.core.validation.Validator;
+import org.futurepages.util.FileUtil;
 import org.futurepages.util.Is;
+
+import java.io.File;
+
+import static org.futurepages.menta.core.action.Manipulable.CREATE;
 
 public class AlunoValidator extends Validator {
 
-	public void createOrUpdate(Aluno aluno) {
+	public void createOrUpdate(Aluno aluno, FileItem foto, String type) {
 
-        // Validação da turma
-        if (Is.empty(aluno.getTurma())) {
-            error("Selecione uma turma.");
-        }
 
 		// Validação do nome
 		if (Is.empty(aluno.getNomeCompleto())) {
@@ -29,6 +31,15 @@ public class AlunoValidator extends Validator {
 			}
 		}
 
-		//@TODO falta validação do arquivo de foto. O formato do arquivo teria que ser somente jpg.
+        // Validação da turma
+        if (Is.empty(aluno.getTurma())) {
+            error("Selecione uma turma.");
+        }
+
+		if(foto==null && type.equals(CREATE)){
+			error("A foto 3x4 é obrigatória.");
+		}else if(!foto.getContentType().equals("image/jpeg")){
+			error("A foto precisa ser JPG válida.");
+		}
 	}
 }

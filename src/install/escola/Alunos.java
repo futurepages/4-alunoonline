@@ -45,6 +45,7 @@ public class Alunos implements Installation {
 	 * Instala os alunos, alguns com turmas outros sem turmas.
 	 * As turmas são escolhidas aletariamente.
 	 */
+	@Override
 	public void execute() throws IOException {
 
 		//Alunos com turma...
@@ -72,15 +73,10 @@ public class Alunos implements Installation {
 		Aluno aluno = new Aluno(matricula, nome);
 		if(turma!=null){
 			aluno.setTurma(turma);
-		}
-
-		Turma turmaX = TurmaDao.getById(aluno.getTurma().getId());
-		if (turmaX != null) {
-			turmaX.setRepresentante(aluno);
+			turma.setRepresentante(aluno);
 		}
 
 		Dao.getInstance().save(aluno);
-		Dao.getInstance().save(turmaX);
 		FileUtil.copy(FileUtil.classRealPath(this.getClass()) + "res/" + aluno.getId() + ".jpg", Resources.getUploadsPath(PathTypeEnum.REAL) + "/alunos/" + aluno.getId()+".jpg");
 	}
 }

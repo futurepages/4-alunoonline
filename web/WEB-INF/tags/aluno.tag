@@ -11,14 +11,8 @@
 	<td>${aluno.nomeCompleto}</td>
 	<td>${aluno.matricula}</td>
 	<td>${aluno.turma.nome}</td>
-	<td>
-		<div align="center">
-			<a href="<fpg:contextPath/>/escola/Aluno?type=update&id=${aluno.id}">editar</a>
-		</div>
-	</td>
-	<td>
-		<div align="center">
-			<a href="javascript:confirmaExclusao('${aluno.id}', '${aluno.nomeCompleto}', '${aluno.matricula}');" >apagar</a>
-		</div>
+	<td colspan="2">
+		<a class="btn btn-warning" href="<fpg:contextPath/>/escola/Aluno?type=update&id=${aluno.id}">editar</a>
+		<a class="btn btn-danger" href="javascript:confirmaExclusao('${aluno.id}', '${aluno.nomeCompleto}', '${aluno.matricula}');" >apagar</a>
 	</td>
 </tr>

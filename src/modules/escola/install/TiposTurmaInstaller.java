@@ -7,8 +7,12 @@ import org.futurepages.core.persistence.Dao;
 /*
  * Instala os tipos de turma...
  */
-public class TiposTurma extends Installer{
+public class TiposTurmaInstaller extends Installer{
 
+	/**
+	 * Metodo que é executado ao carregar a aplicacao
+	 * @throws Exception
+	 */
     @Override
     public void execute() throws Exception {
 	    Dao.getInstance().save(new TipoTurma("Turma Matinal"));

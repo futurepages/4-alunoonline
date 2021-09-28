@@ -1,3 +1,6 @@
+<%--@elvariable id="mensagemInicial" type="java.lang.String"--%>
+<%--@elvariable id="momentoAtual" type="java.lang.String"--%>
+
 <%@taglib uri="futurepagesApp" prefix="fpg"%>
 
 <div style="text-align:center">

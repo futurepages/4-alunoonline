@@ -4,10 +4,13 @@ import modules.escola.beans.Turma;
 import modules.escola.dao.AlunoDao;
 import modules.escola.dao.TipoTurmaDao;
 import modules.escola.dao.TurmaDao;
+import modules.escola.enums.TipoFiltroAlunoTurmaEnum;
+import modules.escola.enums.TipoFiltroTurmaRepresentanteEnum;
 import modules.escola.validators.TurmaValidator;
 import org.futurepages.core.persistence.Dao;
 import org.futurepages.core.persistence.annotations.Transactional;
 import org.futurepages.menta.actions.CrudActions;
+import org.futurepages.util.Is;
 
 //Crud Actions de Turma
 public class TurmaActions extends CrudActions {
@@ -55,15 +58,23 @@ public class TurmaActions extends CrudActions {
 		return success("Turma excluída com sucesso.");
 	}
 
-	public String explore(String busca){
-		output("turmas", TurmaDao.listBy(busca));
+	public String explore(String busca, String tipoFiltro){
+		TipoFiltroTurmaRepresentanteEnum tipoFiltroTurmaRepresentanteEnum = null;
+		try {
+			tipoFiltroTurmaRepresentanteEnum = TipoFiltroTurmaRepresentanteEnum.valueOf(tipoFiltro);
+		}catch (Exception ignored){}
+
+		output("turmas", TurmaDao.listByWithFilter(busca, tipoFiltroTurmaRepresentanteEnum));
 		output("busca",busca);
+
+		TipoFiltroTurmaRepresentanteEnum[] opcoesFiltroTurma = tipoFiltroTurmaRepresentanteEnum.values();
+		output("opcoesFiltroTurma", opcoesFiltroTurma);
 		return SUCCESS;
 	}
 
     @Override
     protected void listObjects() {
-		explore("");
+		explore("", null);
     }
 
 }
