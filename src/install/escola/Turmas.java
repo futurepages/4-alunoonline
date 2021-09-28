@@ -45,8 +45,6 @@ public class Turmas implements Installation {
 		int totalTipos = (int) Dao.getInstance().numRows(hql(TipoTurma.class));
 		TipoTurma tipo = TipoTurmaDao.getById(RandomUtils.nextInt(totalTipos) + 1);
 		turma.setTipo(tipo);
-
-
 		Dao.getInstance().save(turma);
 	}
 }

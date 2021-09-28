@@ -13,29 +13,38 @@
         <br/>
 
     <form method="post" action="<fpg:contextPath/>/escola/Aluno-create" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="nomeCompleto">Nome</label>
-            <input class="form-control" id="nomeCompleto" name="nomeCompleto" value="${aluno.nomeCompleto}" />
+        <div class="form-group" style="display: inline-flex">
+            <div style="width: 50%; padding: 20px">
+                <label for="nomeCompleto">Nome</label>
+                <input class="form-control" id="nomeCompleto" name="nomeCompleto" value="${aluno.nomeCompleto}" />
+            </div>
+            <div style="width: 50%;padding: 20px">
+                <label for="matricula">Matrícula</label>
+                <input class="form-control" id="matricula" name="matricula" value="${aluno.matricula}" />
+            </div>
+            <div style="padding: 20px">
+                <label for="turma">Turma</label>
+                <fpg:Select id="turma"
+                            list="turmas"
+                            name="turma"
+                            selected="${aluno.turma!=null?aluno.turma.id:0}"
+                            showAttr="nome"
+                            defaultText="- Sem turma -"
+                            defaultValue=""
+                            style="margin-top: 8px; margin-left: 5px;"
+                />
+            </div>
+
         </div>
-        <div class="form-group">
-            <label for="matricula">Matrícula</label>
-            <input class="form-control" id="matricula" name="matricula" value="${aluno.matricula}" />
+        <div style="display: inline-flex">
+            <div style="padding-left: 20px">
+                <label for="foto">Foto 3x4</label>
+                <input style="width: 390px" class="form-control" type="file" id="foto" name="foto"/>
+            </div>
+            <div style="padding-top: 32px; padding-left: 10px">
+                <button type="submit" class="btn btn-primary" value="Salvar"> Salvar </button>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="turma">Turma</label>
-            <fpg:Select id="turma"
-                        list="turmas"
-                        name="turma"
-                        selected="${aluno.turma!=null?aluno.turma.id:0}"
-                        showAttr="nome"
-                        defaultText="- Sem turma -"
-                        defaultValue=""
-            />
-        </div>
-        <div class="form-group">
-            <label for="foto">Foto 3x4</label>
-            <input class="form-control" type="file" id="foto" name="foto"/>
-        </div>
-        <button type="submit" class="btn btn-primary" value="Salvar"> Salvar </button>
+
     </form>
 </div>

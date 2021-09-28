@@ -9,6 +9,10 @@ import org.futurepages.core.persistence.Dao;
  */
 public class TiposTurmaInstaller extends Installer{
 
+	/**
+	 * Metodo que é executado ao carregar a aplicacao
+	 * @throws Exception
+	 */
     @Override
     public void execute() throws Exception {
 	    Dao.getInstance().save(new TipoTurma("Turma Matinal"));

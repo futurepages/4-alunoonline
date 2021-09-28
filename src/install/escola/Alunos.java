@@ -73,6 +73,7 @@ public class Alunos implements Installation {
 		Aluno aluno = new Aluno(matricula, nome);
 		if(turma!=null){
 			aluno.setTurma(turma);
+			turma.setRepresentante(aluno);
 		}
 
 		Dao.getInstance().save(aluno);
