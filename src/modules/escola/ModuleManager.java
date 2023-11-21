@@ -1,8 +1,10 @@
 package modules.escola;
 
 import modules.escola.actions.AlunoActions;
+import modules.escola.actions.ProfessorActions;
 import modules.escola.actions.TurmaActions;
 import modules.escola.beans.Aluno;
+import modules.escola.beans.Professor;
 import modules.escola.beans.TipoTurma;
 import modules.escola.beans.Turma;
 import org.futurepages.menta.core.control.AbstractModuleManager;
@@ -81,6 +83,7 @@ public class ModuleManager extends AbstractModuleManager {
             .filter(new VOFilter("turma", Turma.class))
             .filter(new PIFilter("turma","tipo", TipoTurma.class))
             .filter(new PIFilter("turma","representante", Aluno.class))
+            .filter(new PIFilter("turma","professor", Professor.class))
 
             // se chamar Turma?type=create, o método execute será chamado, e
             // a consequência do método deverá mandar o resultado do output
@@ -107,5 +110,55 @@ public class ModuleManager extends AbstractModuleManager {
             .on(SUCCESS, UPDATE, chainIn("Turma?type=explore"))
 
             .on(SUCCESS, DELETE, chainIn("Turma?type=explore"));
+
+
+        //Configuração da Action com o apelido "Professor"
+        action("Professor", ProfessorActions.class)
+            // VOFilter: pega os valores dos campos do formulário da visão e
+            // casa-os com os atributos da classe Professor.class, instancia um
+            // objeto deste tipo e insere os valores dos campos do formulário
+            // nas respectivas propriedades, o objeto preenchido é atribuido
+            // ao campo da action com o nome "professor".
+            .filter(new VOFilter("professor", Professor.class))
+
+            // se chamar Professor?type=create, o método execute será chamado, e
+            // a consequência do método deverá mandar o resultado do output
+            // (fwIn) para a tela de criação do professor dentro do módulo
+            // (com o template montado)
+            .on(CREATE, fwIn("Professor-create.page"))
+
+            // se ocorrer sucesso na criação do professor vai para a tela de
+            // listagem dos professores cadastrados
+            .on(SUCCESS, CREATE, chainIn("Professor?type=explore"))
+
+            // se ocorrer error na criacao do professor volta para a tela de
+            // criação do professor
+            .on(ERROR,   CREATE, fwIn("Professor-create.page"))
+
+            // Professor?type=explore ocorre o redirecionamento para a tela
+            // de listagem dos professores cadastrados no sistema
+            .on(EXPLORE, fwIn("Professor-explore.page"))
+
+            // Professor-explore.fpg retorna SUCCESS e redireciona para a
+            // tela de listagem de alunos cadastrados, filtrados por
+            // turma.
+            .on(SUCCESS, EXPLORE, fwIn("Professor-explore.page"))
+
+            // Se type for igual a UPDATE a consequência será a tela
+            // de atualização
+            .on(UPDATE, fwIn("Professor-update.page"))
+
+            // Se update retornar SUCCESS a consequência será a tela
+            // de exploração.
+            .on(SUCCESS, UPDATE, chainIn("Professor?type=explore"))
+
+            // Se o update volta ERROR ele retorna para a tela de atualização e fala qual a parte
+            // que está errada.
+            .on(ERROR, UPDATE, fwIn("Professor-update.page"))
+
+            // Se delete retornar SUCCESS a consequência será a tela
+            // de exploração. (OBS: não foi implementado a consequência
+            // caso delete retorne ERROR. Isto fica à cargo do estudante.)
+            .on(SUCCESS, DELETE, chainIn("Professor?type=explore"));
     }
 }

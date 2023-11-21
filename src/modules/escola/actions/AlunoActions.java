@@ -31,7 +31,7 @@ public class AlunoActions extends CrudActions {
     public String create() throws Exception {
 		Aluno aluno = (Aluno) input.getValue("aluno");
 		FileItem foto = (FileItem) input.getValue("foto");
-		validate(AlunoValidator.class).createOrUpdate(aluno, foto, CREATE);
+//		validate(AlunoValidator.class).createOrUpdate(aluno, foto, CREATE);
         Dao.getInstance().save(aluno);
 		gravaFoto(aluno,foto);
         return success("Aluno criado com sucesso");
@@ -71,11 +71,10 @@ public class AlunoActions extends CrudActions {
 		TipoFiltroAlunoTurmaEnum tipoFiltro = null;
 		try {
 			tipoFiltro = TipoFiltroAlunoTurmaEnum.valueOf(tipoFiltroName);
-		}catch (Exception ignored){}
+		}catch (Exception ignored) {}
+
 		Turma turma = Is.selected(turmaId)? Dao.getInstance().get(Turma.class, turmaId) : null;
-
 		List<Aluno> alunos = AlunoDao.listByTurmaIdAndTipoFiltro(turma, tipoFiltro);
-
 		List<Turma> turmas = TurmaDao.listAll();
 		TipoFiltroAlunoTurmaEnum[] opcoesFiltroTurma = TipoFiltroAlunoTurmaEnum.values();
 

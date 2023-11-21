@@ -14,9 +14,15 @@ public class EscolaInstaller extends Installer{
     @Override
     public void execute() throws Exception {
 
-	    File uploadsDir = new File(Resources.getUploadsPath(PathTypeEnum.REAL)+"/alunos");
-	    if(!uploadsDir.exists()){
-		    uploadsDir.mkdirs();
+	    File uploadsDirAlunos = new File(Resources.getUploadsPath(PathTypeEnum.REAL)+"/alunos");
+	    File uploadsDirProfessores = new File(Resources.getUploadsPath(PathTypeEnum.REAL)+"/professores");
+
+	    if(!uploadsDirAlunos.exists()){
+		    uploadsDirAlunos.mkdirs();
 	    }
+		if(!uploadsDirProfessores.exists()){
+			uploadsDirProfessores.mkdirs();
+	    }
+
     }
 }

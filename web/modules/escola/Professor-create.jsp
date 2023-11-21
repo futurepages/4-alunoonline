@@ -1,7 +1,7 @@
 <%@taglib uri="futurepagesApp" prefix="fpg"%>
-<%--@elvariable id="aluno" type="modules.escola.beans.Aluno"--%>
+<%--@elvariable id="professor" type="modules.escola.beans.Professor"--%>
+<%--@elvariable id="turma" type="modules.escola.beans.Turma"--%>
 
-<%--Change to Java--%>
 <script type="text/javascript">
     function goBack() {
         window.history.back()
@@ -24,23 +24,28 @@
 </style>
 
 <div class="container">
-    <h1 style="text-align: center;">Novo Aluno</h1>
+    <h1 style="text-align: center;">Novo Professor</h1>
+
     <fpg:hasError>
         <div style="color: red; text-align: center; font-size: 20px">
-            <fpg:error/>
+            <fpg:error />
         </div>
     </fpg:hasError>
 
-    <form method="post" action="<fpg:contextPath/>/escola/Aluno-create" enctype="multipart/form-data">
-        <div class="form-group mainPlace">
+    <form method="post" action="<fpg:contextPath/>/escola/Professor-create" enctype="multipart/form-data">
+        <div class="mainPlace form-group">
             <div class="inputBasicPlace">
                 <div style="width: 50%; padding: 20px; text-align: center">
-                    <label for="nomeCompleto">Nome</label>
-                    <input class="form-control" id="nomeCompleto" name="nomeCompleto" value="${aluno.nomeCompleto}" />
+                    <label for="nome_professor">Nome</label>
+                    <input class="form-control" id="nome_professor" name="nome_professor" value="${professor.nome_professor}" placeholder="Insira seu Nome"/>
                 </div>
                 <div style="width: 50%; padding: 20px; text-align: center">
                     <label for="matricula">Matrícula</label>
-                    <input class="form-control" id="matricula" name="matricula" value="${aluno.matricula}" />
+                    <input class="form-control" id="matricula" name="matricula" value="${professor.matricula}" placeholder="00N0000000"/>
+                </div>
+                <div style="width: 50%; padding: 20px; text-align: center">
+                    <label for="graduacao">Graduação</label>
+                    <input class="form-control" id="graduacao" name="graduacao" value="${professor.graduacao}" placeholder="Seu nível de escolaridade"/>
                 </div>
             </div>
             <div class="inputBasicPlace">
@@ -49,10 +54,10 @@
                     <fpg:Select id="turma"
                                 list="turmas"
                                 name="turma"
-                                selected="${aluno.turma!=null?aluno.turma.id:0}"
+                                selected="${turma.id}"
                                 showAttr="nome"
                                 defaultText="Informe Qual Turma"
-                                defaultValue=""
+                                defaultValue="0"
                                 style="margin-top: 8px; margin-left: 5px; border: #206EA7 solid 2px; border-radius: 10px"
                     />
                 </div>
@@ -63,7 +68,7 @@
                     <input style="width: 390px; border-style: none" class="form-control" type="file" id="foto" name="foto"/>
                 </div>
             </div>
-            <div class="inputBasicPlace" style="justify-content: space-between;">
+            <div class="inputBasicPlace" style="justify-content: space-between; padding-inline: 30px">
                 <button type="submit" class="btn btn-success" value="Salvar">Criar</button>
                 <button class="btn btn-danger" type="button" onclick="goBack()">Cancelar</button>
             </div>

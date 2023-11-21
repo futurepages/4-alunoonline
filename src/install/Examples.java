@@ -1,6 +1,7 @@
 package install;
 
 import install.escola.Alunos;
+import install.escola.Professores;
 import install.escola.Turmas;
 import modules.escola.beans.Turma;
 import org.futurepages.core.install.Installer;
@@ -17,6 +18,8 @@ public class Examples extends Installer {
 
 		List<Turma> turmas = Dao.getInstance().list(Turma.class);
 		install(new Alunos(turmas));
+		install(new Professores());
 
 	}
+
 }

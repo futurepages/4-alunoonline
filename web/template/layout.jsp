@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
-        <title>Aluno Online QuickStart Application</title>
+        <title>Aluno Online</title>
 		<%-- Style --%>
 	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
@@ -17,9 +17,9 @@
 
     <body>
         <fpg:block id="cabecalho"/>
-        <hr/>
-		<fpg:block id="body"/>
-        <hr/>
-	<fpg:block id="rodape"/>
+        <div style="margin: 10px">
+			<fpg:block id="body"/>
+        </div>
+		<fpg:block id="rodape"/>
     </body>
 </html>

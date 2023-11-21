@@ -39,7 +39,7 @@
         <br />
         <br />
     </fpg:hasSuccess>
-        <a href="<fpg:contextPath/>/escola/Turma?type=create">Nova Turma</a>
+    <a href="<fpg:contextPath/>/escola/Turma?type=create">Adicionar Turma</a>
     &nbsp;
 	<form id="form-filtro-turma" style="display:inline;" method="get" action="<fpg:contextPath/>/escola/Turma-explore">
 		<input type="text" name="busca" value="${busca}"/>
@@ -69,12 +69,12 @@
                    style="text-align: center;">
 	            <thead>
 	                <tr>
-	                    <th data-field="id">ID</th>
 	                    <th data-field="codigo">CÓDIGO</th>
 	                    <th data-field="nome">NOME</th>
 	                    <th data-field="tipo">TIPO</th>
 	                    <th data-field="total-alunos">TOTAL DE ALUNOS</th>
 		                <th data-field="representante">REPRESENTANTE</th>
+	                    <th data-field="professor">Professor</th>
 		                <th data-field="lista-alunos" data-visible="false">LISTA DE ALUNOS</th>
 	                    <th>Ações</th>
 	                </tr>
