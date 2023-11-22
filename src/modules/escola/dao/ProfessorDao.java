@@ -40,9 +40,10 @@ public class ProfessorDao extends HQLProvider {
 	}
 
 	public static List<Professor> listByTurmaIdAndTipoFiltro(TipoFiltroProfessorTurmaEnum tipoFiltro, Turma turma) {
-				return Dao.getInstance().list(hql(distinct("p"), Professor.class, "p", tipoFiltro!=null? " INNER " : " LEFT ", join("p.turmasResponsaveis") + as("t"),
+				TipoFiltroProfessorTurmaEnum professorComTurma = TipoFiltroProfessorTurmaEnum.PROFESSORES_COM_TURMA;
+				return Dao.getInstance().list(hql(distinct("p"), Professor.class, "p", tipoFiltro==professorComTurma?" INNER ":" LEFT ",join("p.turmasResponsaveis") + as("t"),
 								ands(
-											turma!=null? field("t.id").equalsTo(turma.getId()) : "",
+											turma!=null? field("t").equalsTo(turma) : "",
 									        tipoFiltro!=null? tipoFiltro.getWhereHQL() : ""
 								),
 								DEFAULT_ORDER_JOIN

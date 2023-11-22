@@ -1,11 +1,10 @@
 package modules.escola.enums;
 
-import static org.futurepages.core.persistence.HQLProvider.field;
+import static org.futurepages.core.persistence.HQLProvider.*;
 
 public enum TipoFiltroProfessorTurmaEnum {
-	PROFESSORES_COM_TURMA ("Profesores com turma", field("t.professor").isNotNull()),
-	PROFESSORES_SEM_TURMA ("Profesores sem turma", field("t.professor").isNull());
-
+	PROFESSORES_COM_TURMA ("Profesores com turma", size("p.turmasResponsaveis").greaterEqualsThen(1)),
+	PROFESSORES_SEM_TURMA ("Profesores sem turma",  size("p.turmasResponsaveis").equalsTo(0));
 	private final String rotulo;
 	private final String whereHQL;
 

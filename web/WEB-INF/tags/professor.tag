@@ -27,7 +27,7 @@
 	<td>
 		<fpg:list value="professor.turmasResponsaveis">
 			<fpg:loop var="turma">
-				${turma.nome}
+				${turma.nome},
 			</fpg:loop>
 		</fpg:list>
 	</td>
