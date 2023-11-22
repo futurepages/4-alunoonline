@@ -21,7 +21,7 @@
             <div style="display: inline-flex; padding: 10px">
                 <div style="float: left; width: 500px">
                     <input name="id" value="${professor.id}" type="hidden"/>
-                    Nome: <input id="nome_professor" class="input-nome" name="nome_professor" value="${professor.nome_professor}" />
+                    Nome: <input id="nome" class="input-nome" name="nome" value="${professor.nome}" />
                 </div>
                 <div style="float: right">
                     Matricula: <input id="matricula" name="matricula" value="${professor.matricula}" />

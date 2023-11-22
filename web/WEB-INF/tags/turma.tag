@@ -23,7 +23,7 @@
 	<td>${turma.tipo.nome}</td>
 	<td>${turma.totalAlunos}</td>
 	<td>${turma.representante.nomeCompleto}</td>
-	<td>${turma.professor.nome_professor}</td>
+	<td>${turma.professor.nome}</td>
 	<td>
 		<fpg:list value="turma.alunos">
 			<fpg:loop var="aluno">

@@ -36,8 +36,8 @@
         <div class="mainPlace form-group">
             <div class="inputBasicPlace">
                 <div style="width: 50%; padding: 20px; text-align: center">
-                    <label for="nome_professor">Nome</label>
-                    <input class="form-control" id="nome_professor" name="nome_professor" value="${professor.nome_professor}" placeholder="Insira seu Nome"/>
+                    <label for="nome">Nome</label>
+                    <input class="form-control" id="nome" name="nome" value="${professor.nome}" placeholder="Insira seu Nome"/>
                 </div>
                 <div style="width: 50%; padding: 20px; text-align: center">
                     <label for="matricula">Matrícula</label>

@@ -12,7 +12,8 @@ import java.util.List;
 
 public class ProfessorDao extends HQLProvider {
 
-	private static final String DEFAULT_ORDER = asc("nome_professor");
+	private static final String DEFAULT_ORDER = asc("nome");
+	private static final String DEFAULT_ORDER_JOIN = asc("p.nome");
 	private static List<Turma> turmas;
 
 	public static Professor getById(int id) {
@@ -44,7 +45,7 @@ public class ProfessorDao extends HQLProvider {
 											turma!=null? field("t.id").equalsTo(turma.getId()) : "",
 									        tipoFiltro!=null? tipoFiltro.getWhereHQL() : ""
 								),
-								DEFAULT_ORDER
+								DEFAULT_ORDER_JOIN
 						)
 				): listAll();
 

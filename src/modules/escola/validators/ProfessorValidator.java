@@ -11,7 +11,7 @@ public class ProfessorValidator extends Validator {
 	public void dataCreate(Professor professor, FileItem foto, String type) {
 		String matricula = professor.getMatricula();
 
-		if (Is.empty(professor.getNome_professor())){
+		if (Is.empty(professor.getNome())){
 			error("Preencha o nome do Professor.");
 		}
 

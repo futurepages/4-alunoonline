@@ -42,27 +42,9 @@ public class Professores implements Installation {
 
 	}
 
-	private void installProfessor(String nome_professor, String matricula, String graduacao) throws IOException {
-			Professor professor = new Professor(nome_professor, matricula, graduacao);
+	private void installProfessor(String nome, String matricula, String graduacao) throws IOException {
+			Professor professor = new Professor(nome, matricula, graduacao);
 			Dao.getInstance().save(professor);
-
-//		Professor professor = new Professor();
-//		if (i < listaTurmaWithAluno.size() && turma.getProfessor() == null){
-//			professor = new Professor(nome_professor, matricula, graduacao, turma);
-//			Dao.getInstance().save(professor);
-//			turma.setProfessor(professor);
-//		} else {
-//			professor = new Professor(nome_professor, matricula, graduacao);
-//			Dao.getInstance().save(professor);
-//		}
-
-//		for (Turma turma: listaTurma) {
-//			if (turma.getAlunos() == null){
-//				turma.setProfessor(professor);
-//				Dao.getInstance().update(turma);
-//				break;
-//			}
-//		}
 
 		FileUtil.copy(FileUtil.classRealPath(this.getClass()) + "res/Professor/" + professor.getId() + ".jpg", Resources.getUploadsPath(PathTypeEnum.REAL) + "/professores/" + professor.getId()+".jpg");
 //		i++;

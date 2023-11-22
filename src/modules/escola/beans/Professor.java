@@ -15,7 +15,7 @@ public class Professor implements Serializable {
 	private int id;
 
 	@Column(length = 80, unique = true, nullable = false)
-	private String nome_professor;
+	private String nome;
 
 	@Column(nullable = false, unique = true, length = 10)
 	private String matricula;
@@ -29,8 +29,8 @@ public class Professor implements Serializable {
 	public Professor() {
 	}
 
-	public Professor(String nome_professor, String matricula, String graduacao) {
-		this.nome_professor = nome_professor;
+	public Professor(String nome, String matricula, String graduacao) {
+		this.nome = nome;
 		this.matricula = matricula;
 		this.graduacao = graduacao;
 	}
@@ -43,8 +43,8 @@ public class Professor implements Serializable {
 		this.matricula = matricula;
 	}
 
-	public void setNome_professor(String nome_professor) {
-		this.nome_professor = nome_professor;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public void setGraduacao(String graduacao) {
@@ -66,8 +66,8 @@ public class Professor implements Serializable {
 		return graduacao;
 	}
 
-	public String getNome_professor() {
-		return nome_professor;
+	public String getNome() {
+		return nome;
 	}
 
 	public List<Turma> getTurmasResponsaveis() {
