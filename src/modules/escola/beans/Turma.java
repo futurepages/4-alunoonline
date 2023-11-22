@@ -30,7 +30,6 @@ public class Turma  implements Serializable {
     private Aluno representante;
 
     @ManyToOne
-    @JoinColumn(name="professor_id")
     private Professor professor;
 
     @OneToMany(mappedBy="turma")
