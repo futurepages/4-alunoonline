@@ -107,6 +107,20 @@ public class ProfessorActions extends CrudActions {
 		// pega os valores que tem em filto Professor se 0 | 1
 		TipoFiltroProfessorTurmaEnum[] opcoesFiltroProfessor = TipoFiltroProfessorTurmaEnum.values();
 
+		Boolean filtroPorTurmaBool = true;
+		Boolean filtroPorPossuiTurmaBool = true;
+
+		if (turmaId > 0 || tipoFiltro == TipoFiltroProfessorTurmaEnum.PROFESSORES_SEM_TURMA){
+			if (turmaId > 0 ){
+				filtroPorTurmaBool = false;
+			}
+			if (tipoFiltro == TipoFiltroProfessorTurmaEnum.PROFESSORES_SEM_TURMA){
+				filtroPorPossuiTurmaBool = false;
+			}
+		}
+
+		output("filtroPorTurmaBool", filtroPorTurmaBool);
+		output("filtroPorPossuiTurmaBool", filtroPorPossuiTurmaBool);
 		output("professores", professores);
 		output("turmas", turmas);
 		output("opcoesFiltroProfessor", opcoesFiltroProfessor);

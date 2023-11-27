@@ -21,7 +21,7 @@
             <div style="display: inline-flex; padding: 10px">
                 <div style="float: left; width: 500px">
                     <input name="id" value="${aluno.id}" type="hidden"/>
-                    Nome: <input id="nomeCompleto" class="input-nome" name="nomeCompleto" value="${aluno.nomeCompleto}" />
+                    Nome: <input id="nome" class="input-nome" name="nome" value="${aluno.nome}" />
                 </div>
                 <div style="float: right">
                     Matricula: <input id="matricula" name="matricula" value="${aluno.matricula}" />

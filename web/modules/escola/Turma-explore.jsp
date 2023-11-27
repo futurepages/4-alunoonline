@@ -2,8 +2,9 @@
 <%--@elvariable id="busca" type="java.lang.String"--%>
 <%--@elvariable id="turma" type="modules.escola.beans.Turma"--%>
 <%--@elvariable id="tipoFiltro" type="modules.escola.enums.TipoFiltroTurmaRepresentanteEnum"--%>
-
-
+<%--@elvariable id="tipoFiltroProfessor" type="modules.escola.enums.TipoFiltroTurmaProfessorEnum"--%>
+<%--@elvariable id="filtroPorTurmaBool" type="java.lang.Boolean"--%>
+<%--@elvariable id="filtroPorPossuiTurmaBool" type="java.lang.Boolean"--%>
 
 <script type="text/javascript">
     function confirmaExclusao(id, codigo, nome) {
@@ -48,6 +49,15 @@
 		            showAttr="rotulo"
 		            name="tipoFiltroName"
 		            selected="${tipoFiltro!=null? tipoFiltro.name() : ''}"
+		            idName="id"
+		            defaultValue=""
+		            onchange="$('#form-filtro-turma').submit()"
+		            defaultText="- Lista Geral -"
+		/>
+		<fpg:Select list="opcoesFiltroProfessor"
+		            showAttr="rotulo"
+		            name="tipoFiltroNameProfessor"
+		            selected="${tipoFiltroProfessor!=null? tipoFiltroProfessor.name() : ''}"
 		            idName="id"
 		            defaultValue=""
 		            onchange="$('#form-filtro-turma').submit()"

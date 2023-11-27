@@ -8,6 +8,7 @@ import modules.escola.dao.ProfessorDao;
 import modules.escola.dao.TipoTurmaDao;
 import modules.escola.dao.TurmaDao;
 import modules.escola.enums.TipoFiltroAlunoTurmaEnum;
+import modules.escola.enums.TipoFiltroTurmaProfessorEnum;
 import modules.escola.enums.TipoFiltroTurmaRepresentanteEnum;
 import modules.escola.validators.TurmaValidator;
 import org.futurepages.core.persistence.Dao;
@@ -64,27 +65,33 @@ public class TurmaActions extends CrudActions {
 		return success("Turma excluída com sucesso.");
 	}
 
-	public String explore(String busca, String tipoFiltro){
+	public String explore(String busca, String tipoFiltro, String tipoFiltroProfessor){
 		TipoFiltroTurmaRepresentanteEnum tipoFiltroTurmaRepresentanteEnum = null;
+		TipoFiltroTurmaProfessorEnum TipoFiltroTurmaProfessorEnum = null;
 		try {
 			tipoFiltroTurmaRepresentanteEnum = TipoFiltroTurmaRepresentanteEnum.valueOf(tipoFiltro);
 		}catch (Exception ignored){}
 
-		List<Turma> turmas = TurmaDao.listByWithFilter(busca, tipoFiltroTurmaRepresentanteEnum);
+		try {
+			TipoFiltroTurmaProfessorEnum = TipoFiltroTurmaProfessorEnum.valueOf(tipoFiltroProfessor);
+		}catch (Exception ignored){}
 
 		output("professores", ProfessorDao.listAll());
-		output("turmas", TurmaDao.listByWithFilter(busca, tipoFiltroTurmaRepresentanteEnum));
+		output("turmas", TurmaDao.listByWithFilter(busca, tipoFiltroTurmaRepresentanteEnum, TipoFiltroTurmaProfessorEnum));
 		output("busca",busca);
 
 		TipoFiltroTurmaRepresentanteEnum[] opcoesFiltroTurma = tipoFiltroTurmaRepresentanteEnum.values();
 		output("opcoesFiltroTurma", opcoesFiltroTurma);
+
+		TipoFiltroTurmaProfessorEnum[] opcoesFiltroProfessor = TipoFiltroTurmaProfessorEnum.values();
+		output("opcoesFiltroProfessor", opcoesFiltroProfessor);
 
 		return SUCCESS;
 	}
 
 	@Override
 	protected void listObjects() {
-		explore("", null);
+		explore("", null, null);
 	}
 
 }

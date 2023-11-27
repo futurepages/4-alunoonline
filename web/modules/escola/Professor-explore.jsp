@@ -2,6 +2,8 @@
 <%--@elvariable id="professor" type="modules.escola.beans.Professor"--%>
 <%--@elvariable id="turma" type="modules.escola.beans.Turma"--%>
 <%--@elvariable id="tipoFiltro" type="modules.escola.enums.TipoFiltroProfessorTurmaEnum"--%>
+<%--@elvariable id="filtroPorTurmaBool" type="java.lang.Boolean"--%>
+<%--@elvariable id="filtroPorPossuiTurmaBool" type="java.lang.Boolean"--%>
 
 <script type="text/javascript">
     function confirmaExclusao(id, nome, matricula) {
@@ -29,23 +31,54 @@
 					<div class="inputBasicPlace" style="flex-direction: column; width: 40%;">
 					</div>
 				</div>
-				<fpg:Select list="turmas"
-				            name="turmaId"
-				            selected="${turma!=null? turma.id : 0}"
-				            defaultText="Qual Turma Deseja Procurar"
-				            onchange="$('#form-filtro-professor').submit()"
-				            showAttr="nome"
-				/>
-
-				<fpg:Select list="opcoesFiltroProfessor"
-				            showAttr="rotulo"
-				            name="tipoFiltroName"
-				            selected="${tipoFiltro!=null? tipoFiltro.name() : ''}"
-				            idName="id"
-				            defaultValue=""
-				            onchange="$('#form-filtro-professor').submit()"
-				            defaultText="Possui Turma?"
-				/>
+				<fpg:if value="${filtroPorPossuiTurmaBool}" context="true">
+					<fpg:then>
+						<fpg:Select list="turmas"
+						            name="turmaId"
+						            selected="${turma!=null? turma.id : 0}"
+						            defaultText="Qual Turma Deseja Procurar"
+						            onchange="$('#form-filtro-professor').submit()"
+						            showAttr="nome"
+						/>
+					</fpg:then>
+					<fpg:else>
+						<fpg:Select list="turmas"
+						            name="turmaId"
+						            selected="${turma!=null? turma.id : 0}"
+						            defaultText="Qual Turma Deseja Procurar"
+						            onchange="$('#form-filtro-professor').submit()"
+						            showAttr="nome"
+						            disabled="true"
+						/>
+						<input type="hidden" id="turmaId" name="turmaId" value="0">
+					</fpg:else>
+				</fpg:if>
+				<fpg:if value="${filtroPorTurmaBool}" context="true">
+					<fpg:then>
+						<fpg:Select list="opcoesFiltroProfessor"
+						            showAttr="rotulo"
+						            name="tipoFiltroName"
+						            selected="${tipoFiltro!=null? tipoFiltro.name() : ''}"
+						            idName="id"
+						            defaultValue=""
+						            onchange="$('#form-filtro-professor').submit()"
+						            defaultText="Possui Turma?"
+						/>
+					</fpg:then>
+					<fpg:else>
+						<fpg:Select list="opcoesFiltroProfessor"
+						            showAttr="rotulo"
+						            name="tipoFiltroName"
+						            selected="${tipoFiltro!=null? tipoFiltro.name() : ''}"
+						            idName="id"
+						            defaultValue=""
+						            onchange="$('#form-filtro-professor').submit()"
+						            defaultText="Possui Turma?"
+						            disabled="true"
+						/>
+						<input type="hidden" id="tipoFiltroName" name="tipoFiltroName" value="">
+					</fpg:else>
+				</fpg:if>
 			</form>
 
 			<table class="table table-bordered table-striped"

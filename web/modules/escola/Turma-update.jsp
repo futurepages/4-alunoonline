@@ -28,7 +28,7 @@
         <br />
         <br />
         Representante:
-        <fpg:Select list="alunos" name="representante" defaultText="Selecione..." defaultValue="0" selected="${turma.representante.id}" showAttr="nomeCompleto"/>
+        <fpg:Select list="alunos" name="representante" defaultText="Selecione..." defaultValue="0" selected="${turma.representante.id}" showAttr="nome"/>
         <br />
         <br />
         <fpg:Select list="professores" name="professor" defaultText="Qual o Professor responsavel pela turma" defaultValue="0" selected="${turma.professor.id}" showAttr="nome"/>

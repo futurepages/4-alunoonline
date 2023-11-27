@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AlunoDao extends HQLProvider{
 
-	private static final String  DEFAULT_ORDER = asc("nomeCompleto");
+	private static final String  DEFAULT_ORDER = asc("nome");
 
 	public static List<Aluno> listByTurmaId(int turma) {
 		return Dao.getInstance().list(hql(Aluno.class, Is.selected(turma)? field("turma").equalsTo(turma) : "" ,DEFAULT_ORDER));

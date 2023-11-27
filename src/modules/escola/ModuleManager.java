@@ -133,7 +133,7 @@ public class ModuleManager extends AbstractModuleManager {
 
             // se ocorrer error na criacao do professor volta para a tela de
             // criação do professor
-            .on(ERROR,   CREATE, fwIn("Professor-create.page"))
+            .on(ERROR, CREATE, fwIn("Professor-create.page"))
 
             // Professor?type=explore ocorre o redirecionamento para a tela
             // de listagem dos professores cadastrados no sistema

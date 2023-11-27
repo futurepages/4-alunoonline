@@ -16,10 +16,14 @@
     </head>
 
     <body>
-        <fpg:block id="cabecalho"/>
-        <div style="margin: 10px">
+	    <div>
+            <fpg:block id="cabecalho"/>
+	    </div>
+        <div style="margin: 10px; padding-bottom: 18px">
 			<fpg:block id="body"/>
         </div>
-		<fpg:block id="rodape"/>
+        <div style="height: 4%">
+            <fpg:block id="rodape"/>
+        </div>
     </body>
 </html>

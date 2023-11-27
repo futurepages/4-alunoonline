@@ -1,5 +1,7 @@
 package modules.escola.beans;
 
+import org.hibernate.annotations.Cascade;
+
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +23,7 @@ public class Aluno implements Serializable {
 	private String matricula;
 
     @Column(nullable = false)
-	private String nomeCompleto;
+	private String nome;
 
     @ManyToOne
     private Turma turma;
@@ -29,14 +31,14 @@ public class Aluno implements Serializable {
 	public Aluno() {
 	}
 
-	public Aluno(String matricula, String nomeCompleto) {
+	public Aluno(String matricula, String nome) {
 		this.matricula = matricula;
-		this.nomeCompleto = nomeCompleto;
+		this.nome = nome;
 	}
 
-    public Aluno(String matricula, String nomeCompleto, Turma turma) {
+    public Aluno(String matricula, String nome, Turma turma) {
         this.matricula = matricula;
-        this.nomeCompleto = nomeCompleto;
+        this.nome = nome;
         this.turma = turma;
     }
 
@@ -56,12 +58,12 @@ public class Aluno implements Serializable {
 		this.matricula = matricula;
 	}
 
-	public String getNomeCompleto() {
-		return nomeCompleto;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
     public Turma getTurma() {

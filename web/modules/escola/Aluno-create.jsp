@@ -35,8 +35,8 @@
         <div class="form-group mainPlace">
             <div class="inputBasicPlace">
                 <div style="width: 50%; padding: 20px; text-align: center">
-                    <label for="nomeCompleto">Nome</label>
-                    <input class="form-control" id="nomeCompleto" name="nomeCompleto" value="${aluno.nomeCompleto}" />
+                    <label for="nome">Nome</label>
+                    <input class="form-control" id="nome" name="nome" value="${aluno.nome}" />
                 </div>
                 <div style="width: 50%; padding: 20px; text-align: center">
                     <label for="matricula">Matrícula</label>

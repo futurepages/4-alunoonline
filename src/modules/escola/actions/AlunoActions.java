@@ -6,6 +6,7 @@ import modules.escola.beans.Turma;
 import modules.escola.dao.AlunoDao;
 import modules.escola.dao.TurmaDao;
 import modules.escola.enums.TipoFiltroAlunoTurmaEnum;
+import modules.escola.enums.TipoFiltroProfessorTurmaEnum;
 import modules.escola.validators.AlunoValidator;
 import org.apache.commons.fileupload.FileItem;
 import org.futurepages.core.persistence.Dao;
@@ -77,6 +78,21 @@ public class AlunoActions extends CrudActions {
 		List<Aluno> alunos = AlunoDao.listByTurmaIdAndTipoFiltro(turma, tipoFiltro);
 		List<Turma> turmas = TurmaDao.listAll();
 		TipoFiltroAlunoTurmaEnum[] opcoesFiltroTurma = TipoFiltroAlunoTurmaEnum.values();
+
+		Boolean filtroPorTurmaBool = true;
+		Boolean filtroPorPossuiTurmaBool = true;
+
+		if (turmaId > 0 || tipoFiltro == TipoFiltroAlunoTurmaEnum.ALUNOS_SEM_TURMA){
+			if (turmaId > 0 ){
+				filtroPorTurmaBool = false;
+			}
+			if (tipoFiltro == TipoFiltroAlunoTurmaEnum.ALUNOS_SEM_TURMA){
+				filtroPorPossuiTurmaBool = false;
+			}
+		}
+
+		output("filtroPorTurmaBool", filtroPorTurmaBool);
+		output("filtroPorPossuiTurmaBool", filtroPorPossuiTurmaBool);
 
 		// lista principal...
 		output("alunos", alunos);

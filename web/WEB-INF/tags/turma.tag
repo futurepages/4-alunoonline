@@ -22,13 +22,13 @@
 	<td>${turma.nome}</td>
 	<td>${turma.tipo.nome}</td>
 	<td>${turma.totalAlunos}</td>
-	<td>${turma.representante.nomeCompleto}</td>
+	<td>${turma.representante.nome}</td>
 	<td>${turma.professor.nome}</td>
 	<td>
 		<fpg:list value="turma.alunos">
 			<fpg:loop var="aluno">
 				<%--@elvariable id="aluno" type="modules.escola.beans.Aluno"--%>
-				${aluno.nomeCompleto}<br/>
+				${aluno.nome}<br/>
 			</fpg:loop>
 		</fpg:list>
 	</td>

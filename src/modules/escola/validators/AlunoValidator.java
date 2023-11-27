@@ -16,7 +16,7 @@ public class AlunoValidator extends Validator {
 		String matricula = aluno.getMatricula();
 
 		// Validação do nome
-		if (Is.empty(aluno.getNomeCompleto())) {
+		if (Is.empty(aluno.getNome())) {
 			error("Preencha o nome do aluno.");
 		}
 
