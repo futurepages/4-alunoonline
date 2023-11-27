@@ -2,8 +2,9 @@
 <%--@elvariable id="busca" type="java.lang.String"--%>
 <%--@elvariable id="turma" type="modules.escola.beans.Turma"--%>
 <%--@elvariable id="tipoFiltro" type="modules.escola.enums.TipoFiltroTurmaRepresentanteEnum"--%>
-
-
+<%--@elvariable id="tipoFiltroProfessor" type="modules.escola.enums.TipoFiltroTurmaProfessorEnum"--%>
+<%--@elvariable id="filtroPorTurmaBool" type="java.lang.Boolean"--%>
+<%--@elvariable id="filtroPorPossuiTurmaBool" type="java.lang.Boolean"--%>
 
 <script type="text/javascript">
     function confirmaExclusao(id, codigo, nome) {
@@ -39,7 +40,7 @@
         <br />
         <br />
     </fpg:hasSuccess>
-        <a href="<fpg:contextPath/>/escola/Turma?type=create">Nova Turma</a>
+    <a href="<fpg:contextPath/>/escola/Turma?type=create">Adicionar Turma</a>
     &nbsp;
 	<form id="form-filtro-turma" style="display:inline;" method="get" action="<fpg:contextPath/>/escola/Turma-explore">
 		<input type="text" name="busca" value="${busca}"/>
@@ -48,6 +49,15 @@
 		            showAttr="rotulo"
 		            name="tipoFiltroName"
 		            selected="${tipoFiltro!=null? tipoFiltro.name() : ''}"
+		            idName="id"
+		            defaultValue=""
+		            onchange="$('#form-filtro-turma').submit()"
+		            defaultText="- Lista Geral -"
+		/>
+		<fpg:Select list="opcoesFiltroProfessor"
+		            showAttr="rotulo"
+		            name="tipoFiltroNameProfessor"
+		            selected="${tipoFiltroProfessor!=null? tipoFiltroProfessor.name() : ''}"
 		            idName="id"
 		            defaultValue=""
 		            onchange="$('#form-filtro-turma').submit()"
@@ -69,12 +79,12 @@
                    style="text-align: center;">
 	            <thead>
 	                <tr>
-	                    <th data-field="id">ID</th>
 	                    <th data-field="codigo">CÓDIGO</th>
 	                    <th data-field="nome">NOME</th>
 	                    <th data-field="tipo">TIPO</th>
 	                    <th data-field="total-alunos">TOTAL DE ALUNOS</th>
 		                <th data-field="representante">REPRESENTANTE</th>
+	                    <th data-field="professor">Professor</th>
 		                <th data-field="lista-alunos" data-visible="false">LISTA DE ALUNOS</th>
 	                    <th>Ações</th>
 	                </tr>

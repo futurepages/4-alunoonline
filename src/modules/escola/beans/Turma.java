@@ -1,22 +1,12 @@
 package modules.escola.beans;
 
-import install.escola.Alunos;
 import modules.escola.dao.AlunoDao;
 import modules.escola.dao.TurmaDao;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -36,11 +26,14 @@ public class Turma  implements Serializable {
     @ManyToOne(optional = false)
 	private TipoTurma tipo;
 
-    @OneToMany(mappedBy="turma")
-    private List<Aluno> alunos;
-
     @ManyToOne
     private Aluno representante;
+
+    @ManyToOne
+    private Professor professor;
+
+    @OneToMany(mappedBy="turma")
+    private List<Aluno> alunos;
 
     public Turma() {
     }
@@ -54,6 +47,13 @@ public class Turma  implements Serializable {
         setCodigo(codigo);
         setNome(nome);
         setRepresentante(representante);
+    }
+
+    public Turma(String codigo, String nome, Aluno representante, Professor professor){
+        setCodigo(codigo);
+        setNome(nome);
+        setRepresentante(representante);
+        setProfessor(professor);
     }
 
     public void setCodigo(String codigo) {
@@ -104,6 +104,14 @@ public class Turma  implements Serializable {
         return representante;
     }
 
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
     public long getTotalAlunos() {
         return TurmaDao.getTotalAlunosPara(this);
     }
@@ -113,5 +121,6 @@ public class Turma  implements Serializable {
         this.setCodigo(turmaForm.getCodigo());
         this.setTipo(turmaForm.getTipo());
         this.setRepresentante(turmaForm.getRepresentante());
+        this.setProfessor(turmaForm.getProfessor());
     }
 }

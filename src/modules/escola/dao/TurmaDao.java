@@ -2,9 +2,11 @@ package modules.escola.dao;
 
 import modules.escola.beans.Aluno;
 import modules.escola.beans.Turma;
+import modules.escola.enums.TipoFiltroTurmaProfessorEnum;
 import modules.escola.enums.TipoFiltroTurmaRepresentanteEnum;
 import org.futurepages.core.persistence.Dao;
 import org.futurepages.core.persistence.HQLProvider;
+import org.futurepages.util.Is;
 
 import java.util.List;
 
@@ -50,14 +52,29 @@ public class TurmaDao extends HQLProvider {
 		return Dao.getInstance().list(hql(Turma.class, field("nome").matches(busca)));
 	}
 
-	public static Object listByWithFilter(String busca, TipoFiltroTurmaRepresentanteEnum tipoFiltro) {
+	public static List<Turma> listByWithFilter(String busca, TipoFiltroTurmaRepresentanteEnum tipoFiltro, TipoFiltroTurmaProfessorEnum tipoFiltroProfessor) {
 		return Dao.getInstance().list(hql(Turma.class,
 						ands(
 								busca!=null? field("nome").matches(busca) : "",
-								tipoFiltro!=null? tipoFiltro.getWhereHQL() : ""
+								tipoFiltro!=null? tipoFiltro.getWhereHQL() : "",
+								tipoFiltroProfessor!=null? tipoFiltroProfessor.getWhereHQL() : ""
 						),
 						DEFAULT_ORDER
 				)
 		);
+	}
+
+	public static List<Turma> listWithAluno() {
+		return Dao.getInstance().list(hql(Turma.class,
+						ands(
+								field("alunos").isNotNull()
+						),
+						DEFAULT_ORDER
+				)
+		);
+	}
+
+	public static List<Turma> listByTurmaId(int professor) {
+		return Dao.getInstance().list(hql(Turma.class, Is.selected(professor)? field("professor").equalsTo(professor) : "" ,DEFAULT_ORDER));
 	}
 }

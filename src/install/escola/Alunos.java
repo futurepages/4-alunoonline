@@ -77,6 +77,6 @@ public class Alunos implements Installation {
 		}
 
 		Dao.getInstance().save(aluno);
-		FileUtil.copy(FileUtil.classRealPath(this.getClass()) + "res/" + aluno.getId() + ".jpg", Resources.getUploadsPath(PathTypeEnum.REAL) + "/alunos/" + aluno.getId()+".jpg");
+		FileUtil.copy(FileUtil.classRealPath(this.getClass()) + "res/Aluno/" + aluno.getId() + ".jpg", Resources.getUploadsPath(PathTypeEnum.REAL) + "/alunos/" + aluno.getId()+".jpg");
 	}
 }

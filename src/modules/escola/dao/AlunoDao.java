@@ -1,7 +1,7 @@
 package modules.escola.dao;
 
 import modules.escola.beans.Aluno;
-import modules.escola.beans.TipoTurma;
+import modules.escola.beans.Professor;
 import modules.escola.beans.Turma;
 import modules.escola.enums.TipoFiltroAlunoTurmaEnum;
 import org.futurepages.core.persistence.Dao;
@@ -13,24 +13,27 @@ import java.util.List;
 
 public class AlunoDao extends HQLProvider{
 
-	private static final String  DEFAULT_ORDER = asc("nomeCompleto");
+	private static final String  DEFAULT_ORDER = asc("nome");
 
 	public static List<Aluno> listByTurmaId(int turma) {
-		return Dao.getInstance().list(hql(Aluno.class, Is.selected(turma)? field("turma.id").equalsTo(turma) : "" ,DEFAULT_ORDER));
+		return Dao.getInstance().list(hql(Aluno.class, Is.selected(turma)? field("turma").equalsTo(turma) : "" ,DEFAULT_ORDER));
 	}
 
 	public static Aluno getById(int id) {
 		return Dao.getInstance().get(Aluno.class,id);
 	}
 
-	public static Aluno getOutroComMatriculaDeste(Aluno aluno) {
-		return Dao.getInstance().uniqueResult(hql(Aluno.class,
-									ands(field("id").differentFrom(aluno.getId()),
-											field("matricula").equalsTo(aluno.getMatricula())
-									)
-				));
+	public static boolean getOutroComMatriculaDeste(String matricula) {
+		Professor professorVerificacao = Dao.getInstance().uniqueResult(hql(Professor.class, field("matricula").equalsTo(matricula)));
+		Aluno alunoVerificacao = Dao.getInstance().uniqueResult(hql(Aluno.class, field("matricula").equalsTo(matricula)));
 
+		if (alunoVerificacao != null || professorVerificacao != null){
+			return true;
+		} else {
+			return false;
+		}
 	}
+
 	public static List<Aluno> listAll() {
 		return Dao.getInstance().list(hql(Aluno.class,null, DEFAULT_ORDER));
 	}
